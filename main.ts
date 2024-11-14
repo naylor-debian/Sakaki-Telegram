@@ -1,5 +1,5 @@
 const { apiId, apiHash, Session, } = require ('./config.json'); 
-const { TelegramClient } = require("telegram");
+const { TelegramClient, Api, } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
 const stringSession = new StringSession(Session); 
@@ -22,4 +22,10 @@ async function Start () {
   //console.log(client.session.save()); // Save this string to avoid logging in again
   console.log(client);
 
+
+const messages = await client.getMessages(chat, {ids: undefined });
+const messagesData = messages[0];
+console.log(messages);
+  
+  
 } Start();
