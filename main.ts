@@ -1,14 +1,16 @@
-const { apiId, apiHash, } = require ('./config.json'); 
+const { apiId, apiHash, Session, } = require ('./config.json'); 
 const { TelegramClient } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const input = require("input"); // npm i input
-const stringSession = new StringSession(""); // fill this later with the value from session.save()
+const stringSession = new StringSession(Session); 
+// fill this later with the value from session.save()
 
-(async () => {
+async function Start () {
   console.log("Loading interactive example...");
   const client = new TelegramClient(stringSession, apiId, apiHash, {
     connectionRetries: 5,
   });
+
   await client.start({
     phoneNumber: async () => await input.text("Please enter your number: "),
     password: async () => await input.text("Please enter your password: "),
@@ -17,6 +19,7 @@ const stringSession = new StringSession(""); // fill this later with the value f
     onError: (err: any) => console.log(err),
   });
   console.log("You should now be connected.");
-  console.log(client.session.save()); // Save this string to avoid logging in again
-  await client.sendMessage("me", { message: "Hello!" });
-})();
+  //console.log(client.session.save()); // Save this string to avoid logging in again
+  console.log(client);
+
+} Start();
